@@ -8,6 +8,9 @@ I could never find an easy to use, online table-of-content maker for GitHub mark
 
 This page just uses JavaScript to extract headings from a markdown file and return table-of-content markdown.
 
-## The Magic
+## The Magicx
 
 https://imthenachoman.github.io/nGitHubTOC/
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTY0MTk2OTUxXX0=
+-->
