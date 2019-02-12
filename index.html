@@ -31,18 +31,13 @@
             gtag('js', new Date());
             gtag('config', 'UA-66393354-2');
         </script>
+        <script src="nGitHubTOC.js"></script>
         <script>
-            function tocIt()
+            function doIt()
             {
-                var input = document.querySelector("#input").value.trim();
+                var inputMD = document.querySelector("#inputMD").value;
                 var minHeading = document.querySelector("#minHeading").value;
                 var maxHeading = document.querySelector("#maxHeading").value;
-                
-                if(input === "")
-                {
-                    alert("Please enter your markdown in 'markdown input'.")
-                    return;
-                }
                 
                 if(minHeading > maxHeading)
                 {
@@ -50,43 +45,7 @@
                     return;
                 }
                 
-                var lines = input.split("\n");
-                var output = "";
-                var anchorTracker = {};
-                
-                for(var i = 0; i < lines.length; ++i)
-                {
-                    var line = lines[i];
-                    var match = /^(#+) (.*)$/.exec(line);
-                    if(match)
-                    {
-                        var headingLevel = match[1].length;
-                        var headingTitle = match[2].replace(/<.*?>/g, "");
-                        
-                        if(headingLevel < minHeading || headingLevel > maxHeading)
-                        {
-                            continue;
-                        }
-                        
-                        headingLevel -= minHeading;
-                        
-                        var headingAnchor = headingTitle.toLowerCase().replace(/[^a-z0-9- ]/g, "").replace(/ /g, "-");
-                        
-                        if(headingAnchor in anchorTracker)
-                        {
-                            anchorTracker[headingAnchor]++;
-                            headingAnchor = headingAnchor + "-" + anchorTracker[headingAnchor];
-                        }
-                        else
-                        {
-                            anchorTracker[headingAnchor] = 0;
-                        }
-                        
-                        output += " ".repeat(headingLevel * 2) + "- [" + headingTitle + "](#" + headingAnchor + ")\n";
-                    }
-                }
-                
-                document.querySelector("#output").value = output;
+                document.querySelector("#outputMD").value = tocIt(inputMD, minHeading, maxHeading);
             }
         </script>
     </head>
@@ -104,8 +63,8 @@
                     <th>table of content output</th>
                 </tr>
                 <tr>
-                    <td><textarea id="input"></textarea></td>
-                    <td><textarea id="output"></textarea></td>
+                    <td><textarea id="inputMD"></textarea></td>
+                    <td><textarea id="outputMD"></textarea></td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -119,7 +78,9 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
+                        
                         <br /><br />
+                        
                         <label for="maxHeading">maximum heading level:</label>
                         
                         <select id="maxHeading">
@@ -133,7 +94,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button onclick="tocIt(); return false;">TOC it</button></td>
+                    <td colspan="2"><button onclick="doIt(); return false;">TOC it</button></td>
                 </tr>
             </table>
         </p>
