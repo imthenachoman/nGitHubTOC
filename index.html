@@ -1,8 +1,103 @@
 <html>
-<head>
-<title>hi</title>
-</head>
-<body>
-hi
-</body>
+    <head>
+        <title>nGitHubTOC</title>
+        <style>
+            table
+            {
+                width: 100%;
+            }
+            
+            td
+            {
+                padding: 5px;
+            }
+            
+            textarea
+            {
+                width: 100%;
+                height: 200px;
+            }
+            
+            input
+            {
+                width: 50px;
+            }
+        </style>
+        <script>
+            function tocIt()
+            {
+                var input = document.querySelector("#input").value.trim();
+                var minHeading = document.querySelector("#minHeading").value;
+                var maxHeading = document.querySelector("#maxHeading").value;
+                
+                if(input === "")
+                {
+                    alert("Please enter your markdown in 'markdown input'.")
+                    return;
+                }
+                
+                if(minHeading > maxHeading)
+                {
+                    alert("minimum heading level cannot be greater than maximum heading level")
+                    return;
+                }
+                
+                var lines = input.split("\n");
+                var output = "";
+                
+                for(var i = 0; i < lines.length; ++i)
+                {
+                    var line = lines[i].trim();
+                    
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>nGitHubTOC</h1>
+        <p>a simple web page to quickly create table of content markdown for GitHub markdown files</p>
+        <h2>Overview</h2>
+        <p>I could never find an easy to use, online table-of-content maker for GitHub markdown files. There were many solutions that required downloading or installing something on my computer. For such a trivial task I felt that was unnecessary.</p>
+        <p>This page just uses JavaScript to extract headings from a markdown file and return table-of-content markdown.</p>
+        <h2>The Magic</h2>
+        <p>
+            <table>
+                <tr>
+                    <th>markdown input</th>
+                    <th>table of content output</th>
+                </tr>
+                <tr>
+                    <td><textarea id="input"></textarea></td>
+                    <td><textarea id="output"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="minHeading">minimum heading level:</label>
+                        
+                        <select id="minHeading">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <br /><br />
+                        <label for="maxHeading">maximum heading level:</label>
+                        
+                        <select id="maxHeading">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6" selected>6</option>
+                        </select>
+                    </td>
+                <tr>
+                    <td colspan="2"><button onclick="tocIt(); return false;">TOC it</button></td>
+                </tr>
+            </table>
+        </p>
+    </body>
 </html>
