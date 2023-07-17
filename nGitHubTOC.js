@@ -11,7 +11,7 @@ function tocIt(inputMD, minHeading, maxHeading, ignoreLinex)
     {
         var inputMDLine = inputMDLines[i];
 
-        var codeTag = /^(`{3})(shell)?$/.exec(inputMDLine);
+        var codeTag = /^.*(`{3}) ?(.*)?$/.exec(inputMDLine);
         if(codeTag)
         {
             codeTagEndExpected = !codeTagEndExpected;
@@ -31,7 +31,7 @@ function tocIt(inputMD, minHeading, maxHeading, ignoreLinex)
 
             headingLevel -= minHeading;
           
-            var headingAnchor = headingTitle.toLowerCase().replace(/[^_0-9a-z\xE0-\xFF- ]/g, "").replace(/ /g, "-");
+            var headingAnchor = headingTitle.toLowerCase().replace(/[^_0-9a-z\xE0-\xFF- ]/g, "").replace(/_(?=.*)/g, "").replace(/\*(?=.*)/g, "").replace(/ /g, "-");
           
             if(headingAnchor in anchorTracker)
             {
